@@ -16,24 +16,16 @@ func Instance(conn *gorm.DB) *PersonService {
 	}
 }
 
-func (service *PersonService) Create(entity *entity.Person) *entity.Person {
-	service.conn.Create(entity)
-
-	return entity
+func (service *PersonService) Create(entity *entity.Person) error {
+	return service.conn.Create(entity).Error
 }
 
-func (service *PersonService) Update(entity *entity.Person, id int) *entity.Person {
-	service.conn.Save(entity)
-
-	return entity
+func (service *PersonService) Update(entity *entity.Person, id int) error {
+	return service.conn.Save(entity).Error
 }
 
-func (service *PersonService) Delete(id int) bool {
-	if err := service.conn.Delete(&entity.Person{}, id).Error; err == nil {
-		return true
-	} else {
-		return false
-	}
+func (service *PersonService) Delete(id int) error {
+	return service.conn.Delete(&entity.Person{}, id).Error
 }
 
 func (service *PersonService) GetAll() []entity.Person {

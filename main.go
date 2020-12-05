@@ -15,9 +15,7 @@ func main() {
 		Views: engine,
 	})
 
-	personGroup := app.Group("/persons")
-
-	person.New(database.Conn, personGroup)
+	person.New(database.Conn, app)
 
 	app.Listen(":8080")
 }
